@@ -1,9 +1,9 @@
-package com.malim.refresh.adapter;
+package com.malim.refresh.listener;
 
 import com.malim.refresh.listener.RefreshListener;
 import com.malim.refresh.weight.MalinRefreshLayout;
 
-public abstract class RefreshListenerAdapter implements RefreshListener {
+public abstract class OnRefreshListener implements RefreshListener {
         @Override
         public void onPullingDown(MalinRefreshLayout refreshLayout, float fraction) {
         }

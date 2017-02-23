@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.malim.refresh.R;
-import com.malim.refresh.adapter.RefreshListenerAdapter;
+import com.malim.refresh.listener.OnRefreshListener;
 import com.malim.refresh.listener.OnAnimEndListener;
 import com.malim.refresh.listener.RefreshListener;
 import com.malim.refresh.progress.AnimProcessor;
@@ -378,9 +378,9 @@ public class MalinRefreshLayout extends RelativeLayout {
     /**
      * 设置刷新控件监听器
      */
-    private RefreshListenerAdapter refreshListenerAdapter;
+    private OnRefreshListener refreshListenerAdapter;
 
-    public void setOnRefreshListenerAdapter(RefreshListenerAdapter refreshListenerAdapter) {
+    public void setOnRefreshListenerAdapter(OnRefreshListener refreshListenerAdapter) {
         if (refreshListenerAdapter != null) {
             this.refreshListenerAdapter = refreshListenerAdapter;
         }

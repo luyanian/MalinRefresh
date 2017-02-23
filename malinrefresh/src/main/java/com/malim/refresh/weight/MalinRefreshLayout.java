@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import com.malim.refresh.R;
 import com.malim.refresh.listener.OnRefreshListener;
 import com.malim.refresh.listener.OnAnimEndListener;
-import com.malim.refresh.listener.RefreshListener;
+import com.malim.refresh.listener.PullListener;
 import com.malim.refresh.progress.AnimProcessor;
 import com.malim.refresh.progress.OverScrollProcessor;
 import com.malim.refresh.progress.RefreshProcessor;
@@ -378,57 +378,57 @@ public class MalinRefreshLayout extends RelativeLayout {
     /**
      * 设置刷新控件监听器
      */
-    private OnRefreshListener refreshListenerAdapter;
+    private OnRefreshListener onRefreshListener;
 
-    public void setOnRefreshListenerAdapter(OnRefreshListener refreshListenerAdapter) {
-        if (refreshListenerAdapter != null) {
-            this.refreshListenerAdapter = refreshListenerAdapter;
+    public void setOnRefreshListener(OnRefreshListener onRefreshListener) {
+        if (onRefreshListener != null) {
+            this.onRefreshListener = onRefreshListener;
         }
     }
 
     //设置拖动屏幕的监听器
-    private RefreshListener refreshListener;
+    private PullListener pullListener;
 
-    private void setRefreshListener(RefreshListener refreshListener) {
-        this.refreshListener = refreshListener;
+    private void setRefreshListener(PullListener pullListener) {
+        this.pullListener = pullListener;
     }
-    private class MalinRefreshListener implements RefreshListener {
+    private class MalinRefreshListener implements PullListener {
 
         @Override
         public void onPullingDown(MalinRefreshLayout refreshLayout, float fraction) {
             mHeadView.onPullingDown(fraction, mWaveHeight, mHeadHeight);
-            if (refreshListener != null) refreshListener.onPullingDown(refreshLayout, fraction);
+            if (onRefreshListener != null) onRefreshListener.onPullingDown(refreshLayout, fraction);
         }
 
         @Override
         public void onPullingUp(MalinRefreshLayout refreshLayout, float fraction) {
             mBottomView.onPullingUp(fraction, mWaveHeight, mHeadHeight);
-            if (refreshListener != null) refreshListener.onPullingUp(refreshLayout, fraction);
+            if (onRefreshListener != null) onRefreshListener.onPullingUp(refreshLayout, fraction);
         }
 
         @Override
         public void onPullDownReleasing(MalinRefreshLayout refreshLayout, float fraction) {
             mHeadView.onPullReleasing(fraction, mWaveHeight, mHeadHeight);
-            if (refreshListener != null)
-                refreshListener.onPullDownReleasing(refreshLayout, fraction);
+            if (onRefreshListener != null)
+                onRefreshListener.onPullDownReleasing(refreshLayout, fraction);
         }
 
         @Override
         public void onPullUpReleasing(MalinRefreshLayout refreshLayout, float fraction) {
             mBottomView.onPullReleasing(fraction, mWaveHeight, mHeadHeight);
-            if (refreshListener != null) refreshListener.onPullUpReleasing(refreshLayout, fraction);
+            if (onRefreshListener != null) onRefreshListener.onPullUpReleasing(refreshLayout, fraction);
         }
 
         @Override
         public void onRefresh(MalinRefreshLayout refreshLayout) {
             mHeadView.startAnim(mWaveHeight, mHeadHeight);
-            if (refreshListener != null) refreshListener.onRefresh(refreshLayout);
+            if (onRefreshListener != null) onRefreshListener.onRefresh(refreshLayout);
         }
 
         @Override
         public void onLoadMore(MalinRefreshLayout refreshLayout) {
             mBottomView.startAnim(mWaveHeight, mHeadHeight);
-            if (refreshListener != null) refreshListener.onLoadMore(refreshLayout);
+            if (onRefreshListener != null) onRefreshListener.onLoadMore(refreshLayout);
         }
 
         @Override
@@ -450,12 +450,12 @@ public class MalinRefreshLayout extends RelativeLayout {
 
         @Override
         public void onRefreshCanceled() {
-            if (refreshListener != null) refreshListener.onRefreshCanceled();
+            if (onRefreshListener != null) onRefreshListener.onRefreshCanceled();
         }
 
         @Override
         public void onLoadmoreCanceled() {
-            if (refreshListener != null) refreshListener.onLoadmoreCanceled();
+            if (onRefreshListener != null) onRefreshListener.onLoadmoreCanceled();
         }
     }
     public class CoProcessor {
@@ -733,43 +733,43 @@ public class MalinRefreshLayout extends RelativeLayout {
         }
 
         public void onPullingDown(float offsetY) {
-            refreshListener.onPullingDown(MalinRefreshLayout.this, offsetY / mHeadHeight);
+            pullListener.onPullingDown(MalinRefreshLayout.this, offsetY / mHeadHeight);
         }
 
         public void onPullingUp(float offsetY) {
-            refreshListener.onPullingUp(MalinRefreshLayout.this, offsetY / mBottomHeight);
+            pullListener.onPullingUp(MalinRefreshLayout.this, offsetY / mBottomHeight);
         }
 
         public void onRefresh() {
-            refreshListener.onRefresh(MalinRefreshLayout.this);
+            pullListener.onRefresh(MalinRefreshLayout.this);
         }
 
         public void onLoadMore() {
-            refreshListener.onLoadMore(MalinRefreshLayout.this);
+            pullListener.onLoadMore(MalinRefreshLayout.this);
         }
 
         public void onFinishRefresh() {
-            refreshListener.onFinishRefresh();
+            pullListener.onFinishRefresh();
         }
 
         public void onFinishLoadMore() {
-            refreshListener.onFinishLoadMore();
+            pullListener.onFinishLoadMore();
         }
 
         public void onPullDownReleasing(float offsetY) {
-            refreshListener.onPullDownReleasing(MalinRefreshLayout.this, offsetY / mHeadHeight);
+            pullListener.onPullDownReleasing(MalinRefreshLayout.this, offsetY / mHeadHeight);
         }
 
         public void onPullUpReleasing(float offsetY) {
-            refreshListener.onPullUpReleasing(MalinRefreshLayout.this, offsetY / mBottomHeight);
+            pullListener.onPullUpReleasing(MalinRefreshLayout.this, offsetY / mBottomHeight);
         }
 
         public void onRefreshCanceled(){
-            refreshListener.onRefreshCanceled();
+            pullListener.onRefreshCanceled();
         }
 
         public void onLoadmoreCanceled(){
-            refreshListener.onLoadmoreCanceled();
+            pullListener.onLoadmoreCanceled();
         }
 
         public void setStatePTD() {

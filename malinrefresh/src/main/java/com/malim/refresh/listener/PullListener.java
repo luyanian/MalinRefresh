@@ -6,7 +6,7 @@ import com.malim.refresh.weight.MalinRefreshLayout;
  * Created by Administrator on 2017/2/17.
  */
 
-public interface RefreshListener {
+public interface PullListener {
     /**
      * 下拉中
      *
